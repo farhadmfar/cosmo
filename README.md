@@ -11,13 +11,14 @@ This repo contains the source code for the paper [COSMO: Conditional SEQ2SEQ-bas
 
 To start the experiments, first run the following script to download the atomic data:
 
-'''
+```
 bash setup/get_atomic.sh
-'''
+```
 
 Then run the following scripts to prepare the atomic data:
 
-'''
+```
 python setup/prep_data.py
-'''
+```
+
 
