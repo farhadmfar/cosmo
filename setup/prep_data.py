@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import string
+from transformers import BertTokenizer
 
 
 def preprocess(sent):
@@ -24,6 +25,8 @@ def preprocess(sent):
 
     return sent.replace("personx", "Alex").replace("persony", "Jesse").lower()
 
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+
 df = pd.read_csv("v4_atomic_all.csv",index_col=0)
 df.iloc[:,:9] = df.iloc[:,:9].apply(lambda col: col.apply(json.loads))
 
@@ -44,10 +47,12 @@ relations += ["xWant"]
 atomic_data = {}
 for event, row in df.iterrows():
     event = preprocess(event)
+    event = ' '.join(tokenizer.tokenize(event))
     if row['split'] not in atomic_data:
         atomic_data[row['split']] = {}
     for r in relations:
         for item in row[r]:
+            item = ' '.join(tokenizer.tokenize)
             try: atomic_data[row['split']]["{} {}".format(event,r)] += [item]
             except: atomic_data[row['split']]["{} {}".format(event,r)] = [item]
 
