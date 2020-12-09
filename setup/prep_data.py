@@ -52,7 +52,7 @@ for event, row in df.iterrows():
         atomic_data[row['split']] = {}
     for r in relations:
         for item in row[r]:
-            item = ' '.join(tokenizer.tokenize)
+            item = ' '.join(tokenizer.tokenize(item))
             try: atomic_data[row['split']]["{} {}".format(event,r)] += [item]
             except: atomic_data[row['split']]["{} {}".format(event,r)] = [item]
 
