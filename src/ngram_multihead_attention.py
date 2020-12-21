@@ -252,7 +252,7 @@ class NgramMultiheadAttention(nn.Module):
             saved_state = None
 
         q, k, v = self.in_proj_qkv(query)
-        q *= self.scaling
+        q = q * self.scaling
 
         if self.bias_k is not None:
             assert self.bias_v is not None
